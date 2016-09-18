@@ -3,6 +3,7 @@ package togglapi
 import (
 	"fmt"
 	"io"
+	"os"
 	"strings"
 	"testing"
 )
@@ -15,6 +16,24 @@ func Test_NewWorkspaceRepository(t *testing.T) {
 	if client == nil {
 		t.Fail()
 		t.Logf("NewWorkspaceRepository should have returned a workspace API client")
+	}
+}
+
+// If you are only interested in the Workspace API you can instantiate a
+// WorkspaceRepository using the NewWorkspaceRepository function.
+func ExampleNewWorkspaceRepository() {
+	apiToken := "Your-Toggl-API-Token"
+	baseURL := "https://www.toggl.com/api/v8"
+	workspaceRepository := NewWorkspaceRepository(baseURL, apiToken)
+
+	workspaces, workspacesError := workspaceRepository.GetWorkspaces()
+	if workspacesError != nil {
+		fmt.Fprintf(os.Stderr, "Failed to get workspaces: %s", workspacesError)
+		return
+	}
+
+	for _, workspace := range workspaces {
+		fmt.Println(workspace.Name)
 	}
 }
 

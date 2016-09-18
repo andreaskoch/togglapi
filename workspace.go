@@ -1,5 +1,3 @@
-// Package togglapi provides repsitorties for accessing Toggl objects
-// such as Workspaces, Projects and Time Entries via the Toggl REST API.
 package togglapi
 
 import (

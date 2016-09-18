@@ -1,5 +1,9 @@
-// Package togglapi provides repsitorties for accessing Toggl objects
-// such as Workspaces, Projects and Time Entries via the Toggl REST API.
+// Package togglapi provides access to Toggls' time tracking API.
+// The togglapi package provides functions for creating and retrieving
+// workspaces, clients, projects and time entries.
+//
+// To learn more about the Toggl API visit:
+// https://github.com/toggl/toggl_api_docs
 package togglapi
 
 import (
