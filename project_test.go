@@ -22,17 +22,18 @@ func Test_NewProjectRepository(t *testing.T) {
 func ExampleNewProjectRepository() {
 	apiToken := "Your-Toggl-API-Token"
 	baseURL := "https://www.toggl.com/api/v8"
-	projectRepository := NewProjectRepository(baseURL, apiToken)
 
-	workspaces, workspacesError := projectRepository.GetWorkspaces()
+	workspaceRepository := NewWorkspaceRepository(baseURL, apiToken)
+	workspaces, workspacesError := workspaceRepository.GetWorkspaces()
 	if workspacesError != nil {
 		fmt.Fprintf(os.Stderr, "Failed to get workspaces: %s", workspacesError)
 		return
 	}
 
+	projectRepository := NewProjectRepository(baseURL, apiToken)
 	for _, workspace := range workspaces {
 
-		projects, projectsError := api.GetProjects(workspace.ID)
+		projects, projectsError := projectRepository.GetProjects(workspace.ID)
 		if projectsError != nil {
 			fmt.Fprintf(os.Stderr, "Failed to get projects: %s", projectsError)
 			return

@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"os"
 	"time"
-
-	"github.com/andreaskoch/togglapi"
 )
 
 // This example shows how you can use the Toggl API to print
@@ -15,7 +13,7 @@ func Example() {
 
 	baseURL := "https://www.toggl.com/api/v8"
 	apiToken := "Toggl-API-Token"
-	api := togglapi.NewAPI(baseURL, apiToken)
+	api := NewAPI(baseURL, apiToken)
 
 	// print workspace names
 	fmt.Println("Workspaces:")
