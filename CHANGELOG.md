@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 - Fix import cycle in API example
+- Fix ProjectRepository example code
 
 ## [v0.1.2] - 2016-09-18
 
