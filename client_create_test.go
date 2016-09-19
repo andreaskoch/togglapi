@@ -17,14 +17,14 @@ func Test_CreateClient_RestClientReturnsError_ErrorIsReturned(t *testing.T) {
 		},
 	}
 
-	repository := &RESTClientRepository{
+	clientAPI := &ClientAPI{
 		restClient: restClient,
 	}
 
 	input := model.Client{}
 
 	// act
-	_, err := repository.CreateClient(input)
+	_, err := clientAPI.CreateClient(input)
 
 	// assert
 	if err == nil {
@@ -43,14 +43,14 @@ func Test_CreateClient_InvalidJSONIsReturned_ErrorIsReturned(t *testing.T) {
 		},
 	}
 
-	repository := &RESTClientRepository{
+	clientAPI := &ClientAPI{
 		restClient: restClient,
 	}
 
 	input := model.Client{}
 
 	// act
-	_, err := repository.CreateClient(input)
+	_, err := clientAPI.CreateClient(input)
 
 	// assert
 	if err == nil || !strings.Contains(err.Error(), "Failed to deserialize the created client") {
@@ -69,14 +69,14 @@ func Test_CreateClient_NoClientsReturned_EmptyClientIsReturned(t *testing.T) {
 		},
 	}
 
-	repository := &RESTClientRepository{
+	clientAPI := &ClientAPI{
 		restClient: restClient,
 	}
 
 	input := model.Client{}
 
 	// act
-	_, err := repository.CreateClient(input)
+	_, err := clientAPI.CreateClient(input)
 
 	// assert
 	if err != nil {
@@ -99,14 +99,14 @@ func Test_CreateClient_HTTPMethodIsPOST(t *testing.T) {
 		},
 	}
 
-	repository := &RESTClientRepository{
+	clientAPI := &ClientAPI{
 		restClient: restClient,
 	}
 
 	input := model.Client{}
 
 	// act
-	repository.CreateClient(input)
+	clientAPI.CreateClient(input)
 }
 
 func Test_CreateClient_ValidJSONIsReturned_CreatedClientIsReturned(t *testing.T) {
@@ -133,14 +133,14 @@ func Test_CreateClient_ValidJSONIsReturned_CreatedClientIsReturned(t *testing.T)
 		},
 	}
 
-	repository := &RESTClientRepository{
+	clientAPI := &ClientAPI{
 		restClient: restClient,
 	}
 
 	input := model.Client{}
 
 	// act
-	client, err := repository.CreateClient(input)
+	client, err := clientAPI.CreateClient(input)
 
 	// assert
 	if err != nil || client.Name != "Meetings" {

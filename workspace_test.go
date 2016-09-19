@@ -8,23 +8,23 @@ import (
 	"testing"
 )
 
-func Test_NewWorkspaceRepository(t *testing.T) {
+func Test_NewWorkspaceAPI(t *testing.T) {
 	// act
-	client := NewWorkspaceRepository("http://api.example.com", "sakldjaksljkl312312")
+	client := NewWorkspaceAPI("http://api.example.com", "sakldjaksljkl312312")
 
 	// assert
 	if client == nil {
 		t.Fail()
-		t.Logf("NewWorkspaceRepository should have returned a workspace API client")
+		t.Logf("NewWorkspaceAPI should have returned a workspace API client")
 	}
 }
 
 // If you are only interested in the Workspace API you can instantiate a
-// WorkspaceRepository using the NewWorkspaceRepository function.
-func ExampleNewWorkspaceRepository() {
+// WorkspaceAPI using the NewWorkspaceAPI function.
+func ExampleNewWorkspaceAPI() {
 	apiToken := "Your-Toggl-API-Token"
 	baseURL := "https://www.toggl.com/api/v8"
-	workspaceRepository := NewWorkspaceRepository(baseURL, apiToken)
+	workspaceRepository := NewWorkspaceAPI(baseURL, apiToken)
 
 	workspaces, workspacesError := workspaceRepository.GetWorkspaces()
 	if workspacesError != nil {
@@ -45,12 +45,12 @@ func Test_GetWorkspaces_RestClientReturnsError_ErrorIsReturned(t *testing.T) {
 		},
 	}
 
-	repository := &RESTWorkspaceRepository{
+	workspaceAPI := &WorkspaceAPI{
 		restClient: restClient,
 	}
 
 	// act
-	_, err := repository.GetWorkspaces()
+	_, err := workspaceAPI.GetWorkspaces()
 
 	// assert
 	if err == nil {
@@ -74,12 +74,12 @@ func Test_GetWorkspaces_RestClientReturnsInvalidJSON_ErrorIsReturned(t *testing.
 		},
 	}
 
-	repository := &RESTWorkspaceRepository{
+	workspaceAPI := &WorkspaceAPI{
 		restClient: restClient,
 	}
 
 	// act
-	_, err := repository.GetWorkspaces()
+	_, err := workspaceAPI.GetWorkspaces()
 
 	// assert
 	if err == nil || !strings.Contains(err.Error(), "Failed to deserialize") {
@@ -98,12 +98,12 @@ func Test_GetWorkspaces_NoWorkspacesReturned_EmptyListIsReturned(t *testing.T) {
 		},
 	}
 
-	repository := &RESTWorkspaceRepository{
+	workspaceAPI := &WorkspaceAPI{
 		restClient: restClient,
 	}
 
 	// act
-	workspaces, err := repository.GetWorkspaces()
+	workspaces, err := workspaceAPI.GetWorkspaces()
 
 	// assert
 	if len(workspaces) > 0 || err != nil {
@@ -132,12 +132,12 @@ func Test_GetWorkspaces_HTTPMethodIsGET(t *testing.T) {
 		},
 	}
 
-	repository := &RESTWorkspaceRepository{
+	workspaceAPI := &WorkspaceAPI{
 		restClient: restClient,
 	}
 
 	// act
-	repository.GetWorkspaces()
+	workspaceAPI.GetWorkspaces()
 }
 
 func Test_GetWorkspaces_ValidJSONIsReturned_ProjectsAreReturned(t *testing.T) {
@@ -159,12 +159,12 @@ func Test_GetWorkspaces_ValidJSONIsReturned_ProjectsAreReturned(t *testing.T) {
 		},
 	}
 
-	repository := &RESTWorkspaceRepository{
+	workspaceAPI := &WorkspaceAPI{
 		restClient: restClient,
 	}
 
 	// act
-	workspaces, err := repository.GetWorkspaces()
+	workspaces, err := workspaceAPI.GetWorkspaces()
 
 	// assert
 	if workspaces == nil || len(workspaces) != 2 {

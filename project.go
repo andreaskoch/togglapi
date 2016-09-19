@@ -10,9 +10,9 @@ import (
 	"github.com/pkg/errors"
 )
 
-// NewProjectRepository create a new client for the Toggl project API.
-func NewProjectRepository(baseURL, token string) model.ProjectRepository {
-	return &RESTProjectRepository{
+// NewProjectAPI create a new client for the Toggl project API.
+func NewProjectAPI(baseURL, token string) model.ProjectAPI {
+	return &ProjectAPI{
 		restClient: &togglRESTAPIClient{
 			baseURL: baseURL,
 			token:   token,
@@ -20,13 +20,13 @@ func NewProjectRepository(baseURL, token string) model.ProjectRepository {
 	}
 }
 
-// RESTProjectRepository provides functions for interacting with Toggls' project API.
-type RESTProjectRepository struct {
+// ProjectAPI provides functions for interacting with Toggls' project API.
+type ProjectAPI struct {
 	restClient RESTRequester
 }
 
 // CreateProject creates a new project.
-func (repository *RESTProjectRepository) CreateProject(project model.Project) (model.Project, error) {
+func (repository *ProjectAPI) CreateProject(project model.Project) (model.Project, error) {
 
 	projectRequest := struct {
 		Project model.Project `json:"project"`
@@ -53,7 +53,7 @@ func (repository *RESTProjectRepository) CreateProject(project model.Project) (m
 }
 
 // GetProjects returns all projects for the given workspace.
-func (repository *RESTProjectRepository) GetProjects(workspaceID int) ([]model.Project, error) {
+func (repository *ProjectAPI) GetProjects(workspaceID int) ([]model.Project, error) {
 
 	route := fmt.Sprintf(
 		"workspaces/%d/projects",

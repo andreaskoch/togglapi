@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+
+### Changed
+- Rename sub APIs for workspaces, clients, projects and time entries from "...Repository" to "...API"
+
 ## [v0.1.3] - 2016-09-18
 
 Fix errors in example code

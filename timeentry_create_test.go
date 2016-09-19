@@ -17,7 +17,7 @@ func Test_CreateTimeEntry_RestClientReturnsError_ErrorIsReturned(t *testing.T) {
 		},
 	}
 
-	repository := &RESTTimeEntryRepository{
+	timeEntryAPI := &TimeEntryAPI{
 		restClient:    restClient,
 		dateFormatter: date.NewISO8601Formatter(),
 	}
@@ -25,7 +25,7 @@ func Test_CreateTimeEntry_RestClientReturnsError_ErrorIsReturned(t *testing.T) {
 	input := model.TimeEntry{}
 
 	// act
-	_, err := repository.CreateTimeEntry(input)
+	_, err := timeEntryAPI.CreateTimeEntry(input)
 
 	// assert
 	if err == nil {
@@ -47,7 +47,7 @@ func Test_CreateTimeEntry_InvalidJSONIsReturned_ErrorIsReturned(t *testing.T) {
 		},
 	}
 
-	repository := &RESTTimeEntryRepository{
+	timeEntryAPI := &TimeEntryAPI{
 		restClient:    restClient,
 		dateFormatter: date.NewISO8601Formatter(),
 	}
@@ -55,7 +55,7 @@ func Test_CreateTimeEntry_InvalidJSONIsReturned_ErrorIsReturned(t *testing.T) {
 	input := model.TimeEntry{}
 
 	// act
-	_, err := repository.CreateTimeEntry(input)
+	_, err := timeEntryAPI.CreateTimeEntry(input)
 
 	// assert
 	if err == nil {
@@ -74,7 +74,7 @@ func Test_CreateTimeEntry_NoTimeEntryReturned_EmptyTimeEntryIsReturned(t *testin
 		},
 	}
 
-	repository := &RESTTimeEntryRepository{
+	timeEntryAPI := &TimeEntryAPI{
 		restClient:    restClient,
 		dateFormatter: date.NewISO8601Formatter(),
 	}
@@ -82,7 +82,7 @@ func Test_CreateTimeEntry_NoTimeEntryReturned_EmptyTimeEntryIsReturned(t *testin
 	input := model.TimeEntry{}
 
 	// act
-	_, err := repository.CreateTimeEntry(input)
+	_, err := timeEntryAPI.CreateTimeEntry(input)
 
 	// assert
 	if err != nil {
@@ -106,7 +106,7 @@ func Test_CreateTimeEntry_HTTPMethodIsPOST(t *testing.T) {
 		},
 	}
 
-	repository := &RESTTimeEntryRepository{
+	timeEntryAPI := &TimeEntryAPI{
 		restClient:    restClient,
 		dateFormatter: date.NewISO8601Formatter(),
 	}
@@ -114,7 +114,7 @@ func Test_CreateTimeEntry_HTTPMethodIsPOST(t *testing.T) {
 	input := model.TimeEntry{}
 
 	// act
-	repository.CreateTimeEntry(input)
+	timeEntryAPI.CreateTimeEntry(input)
 }
 
 func Test_CreateTimeEntry_ValidJSONIsReturned_ProjectsAreReturned(t *testing.T) {
@@ -135,7 +135,7 @@ func Test_CreateTimeEntry_ValidJSONIsReturned_ProjectsAreReturned(t *testing.T) 
 		},
 	}
 
-	repository := &RESTTimeEntryRepository{
+	timeEntryAPI := &TimeEntryAPI{
 		restClient:    restClient,
 		dateFormatter: date.NewISO8601Formatter(),
 	}
@@ -143,7 +143,7 @@ func Test_CreateTimeEntry_ValidJSONIsReturned_ProjectsAreReturned(t *testing.T) 
 	input := model.TimeEntry{}
 
 	// act
-	timeEntry, err := repository.CreateTimeEntry(input)
+	timeEntry, err := timeEntryAPI.CreateTimeEntry(input)
 
 	// assert
 	if err != nil || timeEntry.Description != "Lorem Ipsum" {

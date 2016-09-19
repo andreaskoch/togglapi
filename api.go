@@ -23,17 +23,17 @@ func NewAPI(baseURL, token string) model.TogglAPI {
 	dateFormatter := date.NewISO8601Formatter()
 
 	return &API{
-		&RESTWorkspaceRepository{restAPI},
-		&RESTProjectRepository{restAPI},
-		&RESTTimeEntryRepository{restAPI, dateFormatter},
-		&RESTClientRepository{restAPI},
+		&WorkspaceAPI{restAPI},
+		&ProjectAPI{restAPI},
+		&TimeEntryAPI{restAPI, dateFormatter},
+		&ClientAPI{restAPI},
 	}
 }
 
 // API provides functions for interacting with the Toggl API.
 type API struct {
-	model.WorkspaceRepository
-	model.ProjectRepository
-	model.TimeEntryRepository
-	model.ClientRepository
+	model.WorkspaceAPI
+	model.ProjectAPI
+	model.TimeEntryAPI
+	model.ClientAPI
 }

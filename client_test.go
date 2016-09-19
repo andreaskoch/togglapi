@@ -2,13 +2,13 @@ package togglapi
 
 import "testing"
 
-func Test_NewClientRepository(t *testing.T) {
+func Test_NewClientAPI(t *testing.T) {
 	// act
-	repository := NewClientRepository("http://api.example.com", "sakldjaksljkl312312")
+	api := NewClientAPI("http://api.example.com", "sakldjaksljkl312312")
 
 	// assert
-	if repository == nil {
+	if api == nil {
 		t.Fail()
-		t.Logf("NewClientRepository should have returned a project API client")
+		t.Logf("NewClientAPI should have returned a project API client")
 	}
 }
