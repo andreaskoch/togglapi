@@ -8,9 +8,9 @@ import (
 	"github.com/pkg/errors"
 )
 
-// NewWorkspaceRepository create a new client for the Toggl workspace API.
-func NewWorkspaceRepository(baseURL, token string) model.WorkspaceRepository {
-	return &RESTWorkspaceRepository{
+// NewWorkspaceAPI create a new client for the Toggl workspace API.
+func NewWorkspaceAPI(baseURL, token string) model.WorkspaceAPI {
+	return &WorkspaceAPI{
 		restClient: &togglRESTAPIClient{
 			baseURL: baseURL,
 			token:   token,
@@ -18,13 +18,13 @@ func NewWorkspaceRepository(baseURL, token string) model.WorkspaceRepository {
 	}
 }
 
-// RESTWorkspaceRepository provides functions for interacting with Toggls' workspace API.
-type RESTWorkspaceRepository struct {
+// WorkspaceAPI provides functions for interacting with Toggls' workspace API.
+type WorkspaceAPI struct {
 	restClient RESTRequester
 }
 
 // GetWorkspaces returns all workspaces for the current user.
-func (repository *RESTWorkspaceRepository) GetWorkspaces() ([]model.Workspace, error) {
+func (repository *WorkspaceAPI) GetWorkspaces() ([]model.Workspace, error) {
 	content, err := repository.restClient.Request(http.MethodGet, "workspaces", nil)
 	if err != nil {
 		return nil, errors.Wrap(err, "Failed to retrieve workspaces")

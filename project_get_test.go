@@ -14,12 +14,12 @@ func Test_GetProjects_RestClientReturnsError_ErrorIsReturned(t *testing.T) {
 		},
 	}
 
-	repository := &RESTProjectRepository{
+	projectAPI := &ProjectAPI{
 		restClient: restClient,
 	}
 
 	// act
-	_, err := repository.GetProjects(1)
+	_, err := projectAPI.GetProjects(1)
 
 	// assert
 	if err == nil {
@@ -53,12 +53,12 @@ func Test_GetProjects_InvalidJSONIsReturned_ErrorIsReturned(t *testing.T) {
 		},
 	}
 
-	repository := &RESTProjectRepository{
+	projectAPI := &ProjectAPI{
 		restClient: restClient,
 	}
 
 	// act
-	_, err := repository.GetProjects(1)
+	_, err := projectAPI.GetProjects(1)
 
 	// assert
 	if err == nil {
@@ -77,12 +77,12 @@ func Test_GetProjects_NoProjectsReturned_EmptyListIsReturned(t *testing.T) {
 		},
 	}
 
-	repository := &RESTProjectRepository{
+	projectAPI := &ProjectAPI{
 		restClient: restClient,
 	}
 
 	// act
-	projects, err := repository.GetProjects(1)
+	projects, err := projectAPI.GetProjects(1)
 
 	// assert
 	if len(projects) > 0 || err != nil {
@@ -109,12 +109,12 @@ func Test_GetProjects_HTTPMethodIsGET(t *testing.T) {
 		},
 	}
 
-	repository := &RESTProjectRepository{
+	projectAPI := &ProjectAPI{
 		restClient: restClient,
 	}
 
 	// act
-	repository.GetProjects(1)
+	projectAPI.GetProjects(1)
 }
 
 func Test_GetProjects_ValidJSONIsReturned_ProjectsAreReturned(t *testing.T) {
@@ -157,12 +157,12 @@ func Test_GetProjects_ValidJSONIsReturned_ProjectsAreReturned(t *testing.T) {
 		},
 	}
 
-	repository := &RESTProjectRepository{
+	projectAPI := &ProjectAPI{
 		restClient: restClient,
 	}
 
 	// act
-	projects, err := repository.GetProjects(1)
+	projects, err := projectAPI.GetProjects(1)
 
 	// assert
 	if projects == nil || len(projects) != 2 {

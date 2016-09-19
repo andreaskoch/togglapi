@@ -7,23 +7,23 @@ import (
 	"time"
 )
 
-func Test_NewTimeEntryRepository(t *testing.T) {
+func Test_NewTimeEntryAPI(t *testing.T) {
 	// act
-	repository := NewTimeEntryRepository("http://api.example.com", "sakldjaksljkl312312")
+	repository := NewTimeEntryAPI("http://api.example.com", "sakldjaksljkl312312")
 
 	// assert
 	if repository == nil {
 		t.Fail()
-		t.Logf("NewTimeEntryRepository should have returned a time entry API client")
+		t.Logf("NewTimeEntryAPI should have returned a time entry API client")
 	}
 }
 
 // If you are only interested in the Time Entry API you can instantiate a
-// TimeEntryRepository using the NewTimeEntryRepository function.
-func ExampleNewTimeEntryRepository() {
+// TimeEntryAPI using the NewTimeEntryAPI function.
+func ExampleNewTimeEntryAPI() {
 	apiToken := "Your-Toggl-API-Token"
 	baseURL := "https://www.toggl.com/api/v8"
-	timeEntryRepository := NewTimeEntryRepository(baseURL, apiToken)
+	timeEntryRepository := NewTimeEntryAPI(baseURL, apiToken)
 
 	stop := time.Now()
 	start := stop.AddDate(0, -1, 0)

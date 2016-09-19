@@ -6,31 +6,31 @@ import (
 	"testing"
 )
 
-func Test_NewProjectRepository(t *testing.T) {
+func Test_NewProjectAPI(t *testing.T) {
 	// act
-	repository := NewProjectRepository("http://api.example.com", "sakldjaksljkl312312")
+	projectAPI := NewProjectAPI("http://api.example.com", "sakldjaksljkl312312")
 
 	// assert
-	if repository == nil {
+	if projectAPI == nil {
 		t.Fail()
-		t.Logf("NewProjectRepository should have returned a project API client")
+		t.Logf("NewProjectAPI should have returned a project API client")
 	}
 }
 
 // If you are only interested in the Project API you can instantiate a
-// ProjectRepository using the NewProjectRepository function.
-func ExampleNewProjectRepository() {
+// ProjectAPI using the NewProjectAPI function.
+func ExampleNewProjectAPI() {
 	apiToken := "Your-Toggl-API-Token"
 	baseURL := "https://www.toggl.com/api/v8"
 
-	workspaceRepository := NewWorkspaceRepository(baseURL, apiToken)
-	workspaces, workspacesError := workspaceRepository.GetWorkspaces()
+	workspaceAPI := NewWorkspaceAPI(baseURL, apiToken)
+	workspaces, workspacesError := workspaceAPI.GetWorkspaces()
 	if workspacesError != nil {
 		fmt.Fprintf(os.Stderr, "Failed to get workspaces: %s", workspacesError)
 		return
 	}
 
-	projectRepository := NewProjectRepository(baseURL, apiToken)
+	projectRepository := NewProjectAPI(baseURL, apiToken)
 	for _, workspace := range workspaces {
 
 		projects, projectsError := projectRepository.GetProjects(workspace.ID)

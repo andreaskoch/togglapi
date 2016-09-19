@@ -2,8 +2,8 @@ package model
 
 import "time"
 
-// The ProjectRepository interface provides functions for creating and fetching projects.
-type ProjectRepository interface {
+// The ProjectAPI interface provides functions for creating and fetching projects.
+type ProjectAPI interface {
 	// CreateProject creates a new project.
 	CreateProject(project Project) (Project, error)
 
@@ -11,8 +11,8 @@ type ProjectRepository interface {
 	GetProjects(workspaceID int) ([]Project, error)
 }
 
-// The ClientRepository interface provides functions for creating and fetching clients.
-type ClientRepository interface {
+// The ClientAPI interface provides functions for creating and fetching clients.
+type ClientAPI interface {
 	// CreateClient creates a new client.
 	CreateClient(client Client) (Client, error)
 
@@ -20,14 +20,14 @@ type ClientRepository interface {
 	GetClients() ([]Client, error)
 }
 
-// The WorkspaceRepository interface provides functions for fetching workspacs.
-type WorkspaceRepository interface {
+// The WorkspaceAPI interface provides functions for fetching workspacs.
+type WorkspaceAPI interface {
 	// GetWorkspaces returns all workspaces for the current user.
 	GetWorkspaces() ([]Workspace, error)
 }
 
-// The TimeEntryRepository interface provides functions for fetching and creating time entries.
-type TimeEntryRepository interface {
+// The TimeEntryAPI interface provides functions for fetching and creating time entries.
+type TimeEntryAPI interface {
 	// CreateTimeEntry creates a new time entry.
 	CreateTimeEntry(timeEntry TimeEntry) (TimeEntry, error)
 
@@ -38,8 +38,8 @@ type TimeEntryRepository interface {
 
 // A TogglAPI interface implements some of the Toggl API methods.
 type TogglAPI interface {
-	WorkspaceRepository
-	ProjectRepository
-	TimeEntryRepository
-	ClientRepository
+	WorkspaceAPI
+	ProjectAPI
+	TimeEntryAPI
+	ClientAPI
 }

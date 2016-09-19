@@ -14,12 +14,12 @@ func Test_GetClients_RestClientReturnsError_ErrorIsReturned(t *testing.T) {
 		},
 	}
 
-	repository := &RESTClientRepository{
+	clientAPI := &ClientAPI{
 		restClient: restClient,
 	}
 
 	// act
-	_, err := repository.GetClients()
+	_, err := clientAPI.GetClients()
 
 	// assert
 	if err == nil {
@@ -42,12 +42,12 @@ func Test_GetClients_InvalidJSONIsReturned_ErrorIsReturned(t *testing.T) {
 		},
 	}
 
-	repository := &RESTClientRepository{
+	clientAPI := &ClientAPI{
 		restClient: restClient,
 	}
 
 	// act
-	_, err := repository.GetClients()
+	_, err := clientAPI.GetClients()
 
 	// assert
 	if err == nil {
@@ -66,12 +66,12 @@ func Test_GetClients_NoClientsReturned_EmptyListIsReturned(t *testing.T) {
 		},
 	}
 
-	repository := &RESTClientRepository{
+	clientAPI := &ClientAPI{
 		restClient: restClient,
 	}
 
 	// act
-	clients, err := repository.GetClients()
+	clients, err := clientAPI.GetClients()
 
 	// assert
 	if len(clients) > 0 || err != nil {
@@ -98,12 +98,12 @@ func Test_GetClients_HTTPMethodIsGET(t *testing.T) {
 		},
 	}
 
-	repository := &RESTClientRepository{
+	clientAPI := &ClientAPI{
 		restClient: restClient,
 	}
 
 	// act
-	repository.GetClients()
+	clientAPI.GetClients()
 }
 
 func Test_GetClients_ValidJSONIsReturned_ClientsAreReturned(t *testing.T) {
@@ -129,12 +129,12 @@ func Test_GetClients_ValidJSONIsReturned_ClientsAreReturned(t *testing.T) {
 		},
 	}
 
-	repository := &RESTClientRepository{
+	clientAPI := &ClientAPI{
 		restClient: restClient,
 	}
 
 	// act
-	clients, err := repository.GetClients()
+	clients, err := clientAPI.GetClients()
 
 	// assert
 	if clients == nil || len(clients) != 2 {

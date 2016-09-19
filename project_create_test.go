@@ -17,14 +17,14 @@ func Test_CreateProject_RestClientReturnsError_ErrorIsReturned(t *testing.T) {
 		},
 	}
 
-	repository := &RESTProjectRepository{
+	projectAPI := &ProjectAPI{
 		restClient: restClient,
 	}
 
 	input := model.Project{}
 
 	// act
-	_, err := repository.CreateProject(input)
+	_, err := projectAPI.CreateProject(input)
 
 	// assert
 	if err == nil {
@@ -43,14 +43,14 @@ func Test_CreateProject_InvalidJSONIsReturned_ErrorIsReturned(t *testing.T) {
 		},
 	}
 
-	repository := &RESTProjectRepository{
+	projectAPI := &ProjectAPI{
 		restClient: restClient,
 	}
 
 	input := model.Project{}
 
 	// act
-	_, err := repository.CreateProject(input)
+	_, err := projectAPI.CreateProject(input)
 
 	// assert
 	if err == nil || !strings.Contains(err.Error(), "Failed to deserialize the created project") {
@@ -69,14 +69,14 @@ func Test_CreateProject_NoProjectsReturned_EmptyProjectIsReturned(t *testing.T) 
 		},
 	}
 
-	repository := &RESTProjectRepository{
+	projectAPI := &ProjectAPI{
 		restClient: restClient,
 	}
 
 	input := model.Project{}
 
 	// act
-	_, err := repository.CreateProject(input)
+	_, err := projectAPI.CreateProject(input)
 
 	// assert
 	if err != nil {
@@ -99,14 +99,14 @@ func Test_CreateProject_HTTPMethodIsPOST(t *testing.T) {
 		},
 	}
 
-	repository := &RESTProjectRepository{
+	projectAPI := &ProjectAPI{
 		restClient: restClient,
 	}
 
 	input := model.Project{}
 
 	// act
-	repository.CreateProject(input)
+	projectAPI.CreateProject(input)
 }
 
 func Test_CreateProject_ValidJSONIsReturned_CreatedProjectIsReturned(t *testing.T) {
@@ -133,14 +133,14 @@ func Test_CreateProject_ValidJSONIsReturned_CreatedProjectIsReturned(t *testing.
 		},
 	}
 
-	repository := &RESTProjectRepository{
+	projectAPI := &ProjectAPI{
 		restClient: restClient,
 	}
 
 	input := model.Project{}
 
 	// act
-	project, err := repository.CreateProject(input)
+	project, err := projectAPI.CreateProject(input)
 
 	// assert
 	if err != nil || project.Name != "Meetings" {

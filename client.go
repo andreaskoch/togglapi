@@ -9,9 +9,9 @@ import (
 	"github.com/pkg/errors"
 )
 
-// NewClientRepository create a new client for the Toggl client API.
-func NewClientRepository(baseURL, token string) model.ClientRepository {
-	return &RESTClientRepository{
+// NewClientAPI create a new client for the Toggl client API.
+func NewClientAPI(baseURL, token string) model.ClientAPI {
+	return &ClientAPI{
 		restClient: &togglRESTAPIClient{
 			baseURL: baseURL,
 			token:   token,
@@ -19,13 +19,13 @@ func NewClientRepository(baseURL, token string) model.ClientRepository {
 	}
 }
 
-// RESTClientRepository provides functions for interacting with Toggls' client API.
-type RESTClientRepository struct {
+// ClientAPI provides functions for interacting with Toggls' client API.
+type ClientAPI struct {
 	restClient RESTRequester
 }
 
 // CreateClient creates a new client.
-func (repository *RESTClientRepository) CreateClient(client model.Client) (model.Client, error) {
+func (repository *ClientAPI) CreateClient(client model.Client) (model.Client, error) {
 
 	clientRequest := struct {
 		Client model.Client `json:"client"`
@@ -52,7 +52,7 @@ func (repository *RESTClientRepository) CreateClient(client model.Client) (model
 }
 
 // GetClients returns all clients for the given workspace.
-func (repository *RESTClientRepository) GetClients() ([]model.Client, error) {
+func (repository *ClientAPI) GetClients() ([]model.Client, error) {
 	content, err := repository.restClient.Request(http.MethodGet, "clients", nil)
 	if err != nil {
 		return nil, errors.Wrap(err, "Failed to retrieve clients")

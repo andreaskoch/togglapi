@@ -13,9 +13,9 @@ import (
 	"github.com/pkg/errors"
 )
 
-// NewTimeEntryRepository create a new client for the Toggl time entry API.
-func NewTimeEntryRepository(baseURL, token string) model.TimeEntryRepository {
-	return &RESTTimeEntryRepository{
+// NewTimeEntryAPI create a new client for the Toggl time entry API.
+func NewTimeEntryAPI(baseURL, token string) model.TimeEntryAPI {
+	return &TimeEntryAPI{
 		restClient: &togglRESTAPIClient{
 			baseURL: baseURL,
 			token:   token,
@@ -24,14 +24,14 @@ func NewTimeEntryRepository(baseURL, token string) model.TimeEntryRepository {
 	}
 }
 
-// RESTTimeEntryRepository provides functions for interacting with Toggls' time entry API.
-type RESTTimeEntryRepository struct {
+// TimeEntryAPI provides functions for interacting with Toggls' time entry API.
+type TimeEntryAPI struct {
 	restClient    RESTRequester
 	dateFormatter date.Formatter
 }
 
 // CreateTimeEntry creates a new time entry.
-func (repository *RESTTimeEntryRepository) CreateTimeEntry(timeEntry model.TimeEntry) (model.TimeEntry, error) {
+func (repository *TimeEntryAPI) CreateTimeEntry(timeEntry model.TimeEntry) (model.TimeEntry, error) {
 
 	duration := int(timeEntry.Stop.Sub(timeEntry.Start).Seconds())
 
@@ -82,7 +82,7 @@ func (repository *RESTTimeEntryRepository) CreateTimeEntry(timeEntry model.TimeE
 
 // GetTimeEntries returns all time entries created between the given start and end date.
 // Returns nil and an error if the time entries could not be retrieved.
-func (repository *RESTTimeEntryRepository) GetTimeEntries(start, end time.Time) ([]model.TimeEntry, error) {
+func (repository *TimeEntryAPI) GetTimeEntries(start, end time.Time) ([]model.TimeEntry, error) {
 	route := fmt.Sprintf(
 		"time_entries?start_date=%s&end_date=%s",
 		url.QueryEscape(repository.dateFormatter.GetDateString(start)),
