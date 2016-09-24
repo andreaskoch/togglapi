@@ -7,6 +7,7 @@ import "time"
 type Project struct {
 	ID          int    `json:"id"`
 	WorkspaceID int    `json:"wid"`
+	ClientID    int    `json:"cid"`
 	Name        string `json:"name"`
 }
 
