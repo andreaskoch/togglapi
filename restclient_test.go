@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
+	"time"
 )
 
 type mockRESTRequester struct {
@@ -80,5 +81,34 @@ func Test_Request_ResponseIsNil_ContentIsEmpty(t *testing.T) {
 	if len(content) > 0 {
 		t.Fail()
 		t.Logf("Request should not have returned a response")
+	}
+}
+
+func Test_Request_CalledMultipleTimes_RequestRateLimitApplies(t *testing.T) {
+	// arrange
+	testServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	}))
+
+	defer testServer.Close()
+
+	restClient := &togglRESTAPIClient{
+		baseURL:              testServer.URL,
+		token:                "21das6d567a5d67s",
+		pauseBetweenRequests: time.Millisecond * 33,
+	}
+
+	// assert
+	timeOfFirstRequest := time.Now()
+
+	restClient.Request("GET", "some-route", nil)
+	restClient.Request("GET", "some-route", nil)
+	restClient.Request("GET", "some-route", nil)
+
+	// assert
+	duration := time.Since(timeOfFirstRequest)
+	expectedDuration := time.Millisecond * 33 * 2
+	if duration < expectedDuration {
+		t.Fail()
+		t.Logf("Issueing 3 requests should have taken at least 66ms but took only %s", duration)
 	}
 }

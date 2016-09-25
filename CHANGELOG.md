@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+
+Rate limiting
+
+### Added
+- Add a request rate limiter to the Toggl REST client which prevents API quota errors. Only one request per second will be issued in the future (see: https://github.com/toggl/toggl_api_docs/commit/5d34c09fc17f2ba5ab97d2b04e97059dbba34ba0).
+
 ## [v0.3.0] - 2016-09-24
 
 ### Added
