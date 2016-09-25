@@ -7,6 +7,8 @@
 package togglapi
 
 import (
+	"time"
+
 	"github.com/andreaskoch/togglapi/date"
 	"github.com/andreaskoch/togglapi/model"
 )
@@ -18,6 +20,10 @@ func NewAPI(baseURL, token string) model.TogglAPI {
 	restAPI := &togglRESTAPIClient{
 		baseURL: baseURL,
 		token:   token,
+
+		// The Toggl API only allows roughly 1 request per second
+		// see: https://github.com/toggl/toggl_api_docs
+		pauseBetweenRequests: time.Millisecond * 1000,
 	}
 
 	dateFormatter := date.NewISO8601Formatter()
