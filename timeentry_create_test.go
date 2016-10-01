@@ -120,13 +120,15 @@ func Test_CreateTimeEntry_HTTPMethodIsPOST(t *testing.T) {
 func Test_CreateTimeEntry_ValidJSONIsReturned_ProjectsAreReturned(t *testing.T) {
 	// arrange
 	timeEntryJSON := `{
-	"id": 1,
-	"wid": 1,
-	"pid": 1,
-	"billable": false,
-	"start": "2016-09-06T06:33:56+00:00",
-	"stop": "2016-09-06T06:48:51+00:00",
-	"description": "Lorem Ipsum"
+	"data": {
+		"id": 1,
+		"wid": 1,
+		"pid": 1,
+		"billable": false,
+		"start": "2016-09-06T06:33:56+00:00",
+		"stop": "2016-09-06T06:48:51+00:00",
+		"description": "Lorem Ipsum"
+	}
 }`
 
 	restClient := &mockRESTRequester{

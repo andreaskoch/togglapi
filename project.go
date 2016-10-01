@@ -44,12 +44,15 @@ func (repository *ProjectAPI) CreateProject(project model.Project) (model.Projec
 		return model.Project{}, errors.Wrap(err, "Failed to create project")
 	}
 
-	var createdProject model.Project
-	if unmarshalError := json.Unmarshal(content, &createdProject); unmarshalError != nil {
+	var projectResponse struct {
+		Project model.Project `json:"data"`
+	}
+
+	if unmarshalError := json.Unmarshal(content, &projectResponse); unmarshalError != nil {
 		return model.Project{}, errors.Wrap(unmarshalError, "Failed to deserialize the created project")
 	}
 
-	return createdProject, nil
+	return projectResponse.Project, nil
 }
 
 // GetProjects returns all projects for the given workspace.
