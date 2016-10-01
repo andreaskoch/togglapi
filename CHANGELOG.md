@@ -4,7 +4,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## [v0.4.1] - 2016-10-01
+
+Fix return values of create functions
 
 ### Fixed
 - Deserialize the created time entry, client and project entities correctly.
