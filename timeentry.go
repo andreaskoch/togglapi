@@ -72,12 +72,15 @@ func (repository *TimeEntryAPI) CreateTimeEntry(timeEntry model.TimeEntry) (mode
 		return model.TimeEntry{}, errors.Wrap(err, "Failed to create time entry")
 	}
 
-	var createdTimeEntry model.TimeEntry
-	if unmarshalError := json.Unmarshal(content, &createdTimeEntry); unmarshalError != nil {
+	var timeEntryResponse struct {
+		TimeEntry model.TimeEntry `json:"data"`
+	}
+
+	if unmarshalError := json.Unmarshal(content, &timeEntryResponse); unmarshalError != nil {
 		return model.TimeEntry{}, errors.Wrap(unmarshalError, "Failed to deserialize the time entry")
 	}
 
-	return createdTimeEntry, nil
+	return timeEntryResponse.TimeEntry, nil
 }
 
 // GetTimeEntries returns all time entries created between the given start and end date.

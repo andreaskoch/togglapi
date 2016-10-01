@@ -43,12 +43,15 @@ func (repository *ClientAPI) CreateClient(client model.Client) (model.Client, er
 		return model.Client{}, errors.Wrap(err, "Failed to create client")
 	}
 
-	var createdClient model.Client
-	if unmarshalError := json.Unmarshal(content, &createdClient); unmarshalError != nil {
+	var clientResponse struct {
+		Client model.Client `json:"data"`
+	}
+
+	if unmarshalError := json.Unmarshal(content, &clientResponse); unmarshalError != nil {
 		return model.Client{}, errors.Wrap(unmarshalError, "Failed to deserialize the created client")
 	}
 
-	return createdClient, nil
+	return clientResponse.Client, nil
 }
 
 // GetClients returns all clients for the given workspace.

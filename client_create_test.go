@@ -112,19 +112,11 @@ func Test_CreateClient_HTTPMethodIsPOST(t *testing.T) {
 func Test_CreateClient_ValidJSONIsReturned_CreatedClientIsReturned(t *testing.T) {
 	// arrange
 	clientJSON := `{
-  "id": 1,
-  "wid": 1,
-  "name": "Meetings",
-  "billable": false,
-  "is_private": true,
-  "active": true,
-  "template": false,
-  "at": "2016-09-06T09:32:06+00:00",
-  "created_at": "2016-09-06T09:32:06+00:00",
-  "color": "2",
-  "auto_estimates": false,
-  "actual_hours": 338,
-  "hex_color": "#df7baa"
+	"data": {
+	  "id": 1,
+	  "wid": 1,
+	  "name": "Client A"
+	}
 }`
 
 	restClient := &mockRESTRequester{
@@ -143,7 +135,7 @@ func Test_CreateClient_ValidJSONIsReturned_CreatedClientIsReturned(t *testing.T)
 	client, err := clientAPI.CreateClient(input)
 
 	// assert
-	if err != nil || client.Name != "Meetings" {
+	if err != nil || client.Name != "Client A" {
 		t.Fail()
 
 		if err != nil {

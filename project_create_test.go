@@ -112,19 +112,21 @@ func Test_CreateProject_HTTPMethodIsPOST(t *testing.T) {
 func Test_CreateProject_ValidJSONIsReturned_CreatedProjectIsReturned(t *testing.T) {
 	// arrange
 	projectJSON := `{
-  "id": 1,
-  "wid": 1,
-  "name": "Meetings",
-  "billable": false,
-  "is_private": true,
-  "active": true,
-  "template": false,
-  "at": "2016-09-06T09:32:06+00:00",
-  "created_at": "2016-09-06T09:32:06+00:00",
-  "color": "2",
-  "auto_estimates": false,
-  "actual_hours": 338,
-  "hex_color": "#df7baa"
+	"data": {
+	  "id": 1,
+	  "wid": 1,
+	  "name": "Meetings",
+	  "billable": false,
+	  "is_private": true,
+	  "active": true,
+	  "template": false,
+	  "at": "2016-09-06T09:32:06+00:00",
+	  "created_at": "2016-09-06T09:32:06+00:00",
+	  "color": "2",
+	  "auto_estimates": false,
+	  "actual_hours": 338,
+	  "hex_color": "#df7baa"
+	}
 }`
 
 	restClient := &mockRESTRequester{
