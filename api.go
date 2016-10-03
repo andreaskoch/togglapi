@@ -15,15 +15,16 @@ import (
 
 const clientName = "github.com/andreaskoch/togglapi"
 
+// The Toggl API only allows roughly 1 request per second
+// see: https://github.com/toggl/toggl_api_docs
+const pauseBetweenRequests = time.Millisecond * 1000
+
 // NewAPI create a new instance of the Toggl API.
 func NewAPI(baseURL, token string) model.TogglAPI {
 	restAPI := &togglRESTAPIClient{
-		baseURL: baseURL,
-		token:   token,
-
-		// The Toggl API only allows roughly 1 request per second
-		// see: https://github.com/toggl/toggl_api_docs
-		pauseBetweenRequests: time.Millisecond * 1000,
+		baseURL:              baseURL,
+		token:                token,
+		pauseBetweenRequests: pauseBetweenRequests,
 	}
 
 	dateFormatter := date.NewISO8601Formatter()

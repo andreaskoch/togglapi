@@ -12,8 +12,9 @@ import (
 func NewWorkspaceAPI(baseURL, token string) model.WorkspaceAPI {
 	return &WorkspaceAPI{
 		restClient: &togglRESTAPIClient{
-			baseURL: baseURL,
-			token:   token,
+			baseURL:              baseURL,
+			token:                token,
+			pauseBetweenRequests: pauseBetweenRequests,
 		},
 	}
 }
