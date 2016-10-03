@@ -14,8 +14,9 @@ import (
 func NewProjectAPI(baseURL, token string) model.ProjectAPI {
 	return &ProjectAPI{
 		restClient: &togglRESTAPIClient{
-			baseURL: baseURL,
-			token:   token,
+			baseURL:              baseURL,
+			token:                token,
+			pauseBetweenRequests: pauseBetweenRequests,
 		},
 	}
 }

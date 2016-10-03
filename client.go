@@ -13,8 +13,9 @@ import (
 func NewClientAPI(baseURL, token string) model.ClientAPI {
 	return &ClientAPI{
 		restClient: &togglRESTAPIClient{
-			baseURL: baseURL,
-			token:   token,
+			baseURL:              baseURL,
+			token:                token,
+			pauseBetweenRequests: pauseBetweenRequests,
 		},
 	}
 }

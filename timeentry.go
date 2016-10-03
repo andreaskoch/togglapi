@@ -17,8 +17,9 @@ import (
 func NewTimeEntryAPI(baseURL, token string) model.TimeEntryAPI {
 	return &TimeEntryAPI{
 		restClient: &togglRESTAPIClient{
-			baseURL: baseURL,
-			token:   token,
+			baseURL:              baseURL,
+			token:                token,
+			pauseBetweenRequests: pauseBetweenRequests,
 		},
 		dateFormatter: date.NewISO8601Formatter(),
 	}
